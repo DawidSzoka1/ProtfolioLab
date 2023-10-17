@@ -10,8 +10,7 @@
 </head>
 <body>
 
-<header class="header--form-page">
-
+<header class="{% block header_class %}header--form-page{% endblock %}">
     <nav class="container container--70">
         <ul class="nav--actions">
             {% if user.user.is_authenticated %}
