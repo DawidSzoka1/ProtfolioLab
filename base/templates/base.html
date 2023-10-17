@@ -9,7 +9,9 @@
     <link rel="stylesheet" href={% static 'css/style.css' %}/>
 </head>
 <body>
+
 <header class="header--form-page">
+
     <nav class="container container--70">
         <ul class="nav--actions">
             {% if user.user.is_authenticated %}
@@ -22,25 +24,25 @@
                     </ul>
                 </li>
             {% else %}
-                <li><a href="" class="btn btn--small btn--without-border">Zaloguj</a></li>
-                <li><a href="#" class="btn btn--small btn--highlighted">Załóż konto</a></li>
+                <li><a href="{% url 'login' %}" class="btn btn--small btn--without-border">Zaloguj</a></li>
+                <li><a href="{% url 'register' %}" class="btn btn--small btn--highlighted">Załóż konto</a></li>
             {% endif %}
         </ul>
 
         <ul>
-            <li><a href="index.html" class="btn btn--without-border active">Start</a></li>
-            <li><a href="index.html#steps" class="btn btn--without-border">O co chodzi?</a></li>
-            <li><a href="index.html#about-us" class="btn btn--without-border">O nas</a></li>
-            <li><a href="index.html#help" class="btn btn--without-border">Fundacje i organizacje</a></li>
-            <li><a href="form.html" class="btn btn--without-border">Przekaż dary</a></li>
-            <li><a href="index.html#contact" class="btn btn--without-border">Kontakt</a></li>
+            <li><a href="{% url 'landing-page' %}" class="btn btn--without-border active">Start</a></li>
+            <li><a href="{% url 'landing-page' %}#steps" class="btn btn--without-border">O co chodzi?</a></li>
+            <li><a href="{% url 'landing-page' %}#about-us" class="btn btn--without-border">O nas</a></li>
+            <li><a href="{% url 'landing-page' %}#help" class="btn btn--without-border">Fundacje i organizacje</a></li>
+            <li><a href="{% url 'add-donation' %}" class="btn btn--without-border">Przekaż dary</a></li>
+            <li><a href="{% url 'landing-page' %}#contact" class="btn btn--without-border">Kontakt</a></li>
         </ul>
     </nav>
     {% block header %}
     {% endblock %}
 </header>
 {% block content %}{% endblock %}
-<footer>
+<footer id="contact">
     <div class="contact">
         <h2>Skontaktuj się z nami</h2>
         <h3>Formularz kontaktowy</h3>
@@ -67,5 +69,6 @@
         </div>
     </div>
 </footer>
+<script src="{% static 'js/app.js' %}"></script>
 </body>
 </html>
