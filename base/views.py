@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.views import View
 from .models import Donation, Institution
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+
 
 # Create your views here.
 
@@ -16,7 +18,7 @@ class LandingPage(View):
                           'count_donation': count_donation,
                           'count_organizations': count_organizations,
                           'organizations': organizations
-                        }
+                      }
                       )
 
 
@@ -28,6 +30,18 @@ class AddDonation(View):
 class Login(View):
     def get(self, request):
         return render(request, 'login.html')
+
+    def post(self, request):
+        email = request.POST.get('email')
+        password_to_check = request.POST.get('password')
+        user = authenticate(request, username=email, password=password_to_check)
+        if user is not None:
+            login(request, user)
+            return redirect('landing-page')
+        else:
+            if User.objects.filter(username=email).first() is None:
+                return redirect('register')
+        return redirect('login')
 
 
 class Register(View):
@@ -47,6 +61,7 @@ class Register(View):
                     if check:
                         pass
                     else:
-                        User.objects.create_user(username=email, password=password, first_name=first_name, last_name=last_name)
+                        User.objects.create_user(username=email, password=password, first_name=first_name,
+                                                 last_name=last_name)
                         return redirect('login')
         return redirect('register')
