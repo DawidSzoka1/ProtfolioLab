@@ -1,6 +1,7 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views import View
-from .models import Donation, Institution
+from .models import Donation, Institution, Category
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 
@@ -24,7 +25,11 @@ class LandingPage(View):
 
 class AddDonation(View):
     def get(self, request):
-        return render(request, 'form.html')
+        if request.user.is_authenticated:
+            categories = Category.objects.all()
+            organizations = Institution.objects.all()
+            return render(request, 'form.html', context={'categories': categories, 'organizations': organizations})
+        return redirect('login')
 
 
 class Login(View):

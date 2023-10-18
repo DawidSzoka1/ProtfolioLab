@@ -57,56 +57,23 @@
                 <!-- STEP 1: class .active is switching steps -->
                 <div data-step="1" class="active">
                     <h3>Zaznacz co chcesz oddać:</h3>
+                    {% for category in categories %}
+                        <div class="form-group form-group--checkbox">
+                            <label>
+                                <input
+                                        type="checkbox"
+                                        name="categories"
+                                        value="{{ category.id }}"
+                                />
+                                <span class="checkbox"></span>
+                                <span class="description"
+                                >{{ category.name }}</span
+                                >
+                            </label>
+                        </div>
+                    {% endfor %}
 
-                    <div class="form-group form-group--checkbox">
-                        <label>
-                            <input
-                                    type="checkbox"
-                                    name="categories"
-                                    value="clothes-to-use"
-                            />
-                            <span class="checkbox"></span>
-                            <span class="description"
-                            >ubrania, które nadają się do ponownego użycia</span
-                            >
-                        </label>
-                    </div>
 
-                    <div class="form-group form-group--checkbox">
-                        <label>
-                            <input
-                                    type="checkbox"
-                                    name="categories"
-                                    value="clothes-useless"
-                            />
-                            <span class="checkbox"></span>
-                            <span class="description">ubrania, do wyrzucenia</span>
-                        </label>
-                    </div>
-
-                    <div class="form-group form-group--checkbox">
-                        <label>
-                            <input type="checkbox" name="categories" value="toys"/>
-                            <span class="checkbox"></span>
-                            <span class="description">zabawki</span>
-                        </label>
-                    </div>
-
-                    <div class="form-group form-group--checkbox">
-                        <label>
-                            <input type="checkbox" name="categories" value="books"/>
-                            <span class="checkbox"></span>
-                            <span class="description">książki</span>
-                        </label>
-                    </div>
-
-                    <div class="form-group form-group--checkbox">
-                        <label>
-                            <input type="checkbox" name="categories" value="other"/>
-                            <span class="checkbox"></span>
-                            <span class="description">inne</span>
-                        </label>
-                    </div>
 
                     <div class="form-group form-group--buttons">
                         <button type="button" class="btn next-step">Dalej</button>
@@ -134,21 +101,34 @@
                 <!-- STEP 4 -->
                 <div data-step="3">
                     <h3>Wybierz organizacje, której chcesz pomóc:</h3>
+                    {% for organization in organizations %}
+                        <div class="organizations" id="{{ organization.id }}" style="display: none">
+                            <div style="display: none">
+                                {% for category in organization.categories.all %}
+                                    <input type="number" value="{{ category.id }}" id="{{ category.id }}" class="category">
 
-                    <div class="form-group form-group--checkbox">
-                        <label>
-                            <input type="radio" name="organization" value="old"/>
-                            <span class="checkbox radio"></span>
-                            <span class="description">
-                  <div class="title">Fundacja “Bez domu”</div>
-                  <div class="subtitle">
-                    Cel i misja: Pomoc dla osób nie posiadających miejsca
-                    zamieszkania
-                  </div>
-                </span>
-                        </label>
-                    </div>
-
+                                {% endfor %}
+                            </div>
+                            <div class="form-group form-group--checkbox">
+                                <label>
+                                    <input type="radio" name="organization" value="old"/>
+                                    <span class="checkbox radio"></span>
+                                    <span class="description">
+                                    {% if organization.type == 0 %}
+                                        <div class="title">Fundacja “{{ organization.name }}”</div>
+                                    {% elif organization.type == 1 %}
+                                        <div class="title">Organizacja pozarządowa “{{ organization.name }}”</div>
+                                    {% elif organization.type == 2 %}
+                                        <div class="title">Zbiórka lokalna “{{ organization.name }}”</div>
+                                    {% endif %}
+                                        <div class="subtitle">
+                              Cel i misja: {{ organization.description }}
+                                </div>
+                            </span>
+                                </label>
+                            </div>
+                        </div>
+                    {% endfor %}
                     <div class="form-group form-group--checkbox">
                         <label>
                             <input type="radio" name="organization" value="old"/>
