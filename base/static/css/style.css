@@ -425,7 +425,7 @@ h2:after {
   display: block;
   width: 256px;
   height: 40px;
-  background-image: url('base/static/images/decoration.svg');
+  background-image: url(../images/decoration.svg);
   background-size: contain;
   margin-top: 25px;
   margin-left: calc(50% - 128px);
@@ -922,7 +922,7 @@ header .slogan--item h1:after {
   display: block;
   width: 256px;
   height: 40px;
-  background-image: url('base/static/images/decoration.svg');
+  background-image: url('../images/decoration.svg');
   background-size: contain;
   margin-top: 25px;
   margin-left: calc(50% - 128px);
@@ -1778,7 +1778,7 @@ footer .bottom-line--icons a img {
   display: block;
   width: 256px;
   height: 40px;
-  background-image: url('base/static/images/decoration.svg');
+  background-image: url(../images/decoration.svg);
   background-size: contain;
   margin-top: 25px;
   margin-left: calc(50% - 128px);
