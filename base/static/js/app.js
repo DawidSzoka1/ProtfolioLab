@@ -164,24 +164,33 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
     const categories2 = document.querySelectorAll("[name='categories']");
-    const list_categories = [];
+    const list_categories = ['elem'];
     const organizations = document.querySelectorAll(".organizations");
     categories2.forEach((elem) => {
         elem.addEventListener('change', function () {
             console.log('change');
 
+            if (this.checked) {
+                list_categories.push(this.value);
 
-            list_categories.push(this.value);
 
-            console.log(list_categories)
-            organizations.forEach((elem) => {
-                const categories = document.querySelectorAll('.category');
-                for (let i = 0; i < categories.length; i++) {
-                    if (categories[i].value in list_categories) {
-                        elem.style.display = 'block'
-
-                    }
+            } else{
+                if (this.value in list_categories) {
+                    list_categories.pop()
                 }
+            }
+
+            organizations.forEach((elem2) => {
+                const categories = document.querySelectorAll('.category');
+                categories.forEach((elem3) => {
+                    if (elem3.value in list_categories) {
+                        elem2.style.display = 'block'
+
+                    }else {
+                        console.log(list_categories)
+                        elem2.style.display = 'none';
+                    }
+                });
 
             });
 
