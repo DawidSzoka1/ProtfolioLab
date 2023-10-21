@@ -263,7 +263,13 @@ document.addEventListener("DOMContentLoaded", function () {
             const categories = document.querySelector("[name='categories']:checked");
             const bagsInput = document.querySelector("[name='bags']");
             const organization = document.querySelector("[name='organization']:checked");
-
+            const cityInput = document.querySelector("[name='city']");
+            const address = document.querySelector("[name='address']");
+            const postcode = document.querySelector("[name='postcode']");
+            const phone = document.querySelector("[name='phone']");
+            const date = document.querySelector("[name='date']");
+            const time = document.querySelector("[name='time']");
+            const more_info = document.querySelector("[name='more_info']");
 
             this.slides.forEach(slide => {
 
@@ -292,7 +298,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         if (slide.dataset.step == this.currentStep) {
                             slide.classList.add("active");
                         }
-                    }else{
+                    } else {
                         this.currentStep = 2;
                     }
 
@@ -303,11 +309,26 @@ document.addEventListener("DOMContentLoaded", function () {
                         if (slide.dataset.step == this.currentStep) {
                             slide.classList.add("active");
                         }
-                    }else {
+                    } else {
                         this.currentStep = 3;
                     }
-                } else if (this.currentStep === 5)  {
+                } else if (this.currentStep === 5) {
+                    if (cityInput.value && address.value && date.value && time.value) {
+                        console.log('dziala1');
+                        if ('-' in postcode.value && postcode.value.length === 5) {
+                            console.log('dziala2');
+                            if (phone.value.length <= 15 && phone.value.length >= 9) {
+                                console.log('dziala3');
+                                slide.classList.remove("active");
 
+                                if (slide.dataset.step == this.currentStep) {
+                                    slide.classList.add("active");
+                                }
+                            }
+                        }
+                    }else {
+                        this.currentStep = 4;
+                    }
                 }
 
 
@@ -319,13 +340,6 @@ document.addEventListener("DOMContentLoaded", function () {
             // TODO: get data from inputs and show them in summary
 
 
-            const cityInput = document.querySelector("[name='city']");
-            const address = document.querySelector("[name='address']");
-            const postcode = document.querySelector("[name='postcode']");
-            const phone = document.querySelector("[name='phone']");
-            const date = document.querySelector("[name='date']");
-            const time = document.querySelector("[name='time']");
-            const more_info = document.querySelector("[name='more_info']");
             const organizations = document.querySelectorAll("[name='organization']");
             const bags = document.querySelector("#bags");
             const organizationSummery = document.querySelector("#inst");
