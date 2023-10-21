@@ -163,18 +163,18 @@ document.addEventListener("DOMContentLoaded", function () {
             el.classList.remove("selecting");
         });
     });
+
+
     const categories2 = document.querySelectorAll("[name='categories']");
     const list_categories = ['elem'];
     const organizations = document.querySelectorAll(".organizations");
     categories2.forEach((elem) => {
         elem.addEventListener('change', function () {
-            console.log('change');
-
             if (this.checked) {
                 list_categories.push(this.value);
 
 
-            } else{
+            } else {
                 if (this.value in list_categories) {
                     list_categories.pop()
                 }
@@ -186,7 +186,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (elem3.value in list_categories) {
                         elem2.style.display = 'block'
 
-                    }else {
+                    } else {
                         console.log(list_categories)
                         elem2.style.display = 'none';
                     }
@@ -260,18 +260,91 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // TODO: Validation
 
-            this.slides.forEach(slide => {
-                slide.classList.remove("active");
+            const categories = document.querySelector("[name='categories']:checked");
+            const bagsInput = document.querySelector("[name='bags']");
+            const organization = document.querySelector("[name='organization']:checked");
 
-                if (slide.dataset.step == this.currentStep) {
-                    slide.classList.add("active");
+
+            this.slides.forEach(slide => {
+
+                if (this.currentStep === 1) {
+                    slide.classList.remove("active");
+
+                    if (slide.dataset.step == this.currentStep) {
+                        slide.classList.add("active");
+                    }
                 }
+                if (this.currentStep === 2) {
+                    if (categories) {
+                        slide.classList.remove("active");
+
+                        if (slide.dataset.step == this.currentStep) {
+                            slide.classList.add("active");
+                        }
+                    } else {
+                        this.currentStep = 1;
+                    }
+
+                } else if (this.currentStep === 3) {
+                    if (bagsInput.value !== '') {
+                        slide.classList.remove("active");
+
+                        if (slide.dataset.step == this.currentStep) {
+                            slide.classList.add("active");
+                        }
+                    }else{
+                        this.currentStep = 2;
+                    }
+
+                } else if (this.currentStep === 4) {
+                    if (organization) {
+                        slide.classList.remove("active");
+
+                        if (slide.dataset.step == this.currentStep) {
+                            slide.classList.add("active");
+                        }
+                    }else {
+                        this.currentStep = 3;
+                    }
+                } else if (this.currentStep === 5)  {
+
+                }
+
+
             });
 
             this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 6;
             this.$step.parentElement.hidden = this.currentStep >= 6;
 
             // TODO: get data from inputs and show them in summary
+
+
+            const cityInput = document.querySelector("[name='city']");
+            const address = document.querySelector("[name='address']");
+            const postcode = document.querySelector("[name='postcode']");
+            const phone = document.querySelector("[name='phone']");
+            const date = document.querySelector("[name='date']");
+            const time = document.querySelector("[name='time']");
+            const more_info = document.querySelector("[name='more_info']");
+            const organizations = document.querySelectorAll("[name='organization']");
+            const bags = document.querySelector("#bags");
+            const organizationSummery = document.querySelector("#inst");
+            if (bagsInput.value) {
+                bags.innerHTML = `${bagsInput.value} worki `;
+            }
+            organizations.forEach(elem => {
+                elem.addEventListener("change", e => {
+                });
+                if (elem.value[0] === '0') {
+                    organizationSummery.innerHTML = `Dla fundacjki "${elem.value}"`;
+                } else if (elem.value[0] === '1') {
+                    organizationSummery.innerHTML = `Dla organizacji pozarządowej "${elem.value}"`;
+                } else if (elem.value[0] === '2') {
+                    organizationSummery.innerHTML = `Dla zbiórki lokalnej "${elem.value}"`;
+                }
+
+            });
+
         }
 
         /**
