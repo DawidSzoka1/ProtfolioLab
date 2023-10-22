@@ -28,7 +28,7 @@ class Donation(models.Model):
     phone_regex = RegexValidator(regex=r'^(?<!\w)(\(?(\+|00)?48\)?)?[ -]?\d{3}[ -]?\d{3}[ -]?\d{3}(?!\w)$',
                                  message="Numer telefony musi byc w formie: '+48 999 999 999' albo '(+48 999 999 999)' albo '999 999 999'.",
                                  code='invalid_numer_telefonu')
-    phone = models.CharField(null=True, unique=True, max_length=17, validators=[phone_regex])
+    phone = models.CharField(null=True, max_length=17, validators=[phone_regex])
     city = models.CharField(max_length=64, null=True)
     address = models.CharField(max_length=128, null=True)
     zip_code = models.CharField(null=True, max_length=6, validators=[RegexValidator(

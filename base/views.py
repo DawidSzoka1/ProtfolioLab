@@ -8,6 +8,10 @@ from django.contrib.auth import authenticate, login
 
 # Create your views here.
 
+class UserProfile(View):
+    def get(self, request):
+        return render(request, 'user-profile.html')
+
 
 class LandingPage(View):
     def get(self, request):
@@ -33,10 +37,9 @@ class AddDonation(View):
 
     def post(self, request):
         categories = list(map(int, request.POST.getlist('categories')))
-        categories = Category.objects.filter(id_in=categories)
+        categories = Category.objects.filter(id__in=categories)
         quantity = request.POST.get('bags')
         institution = Institution.objects.get(id=int(request.POST.get('organization')[-1]))
-        phone = request.POST.get('phone')
         city = request.POST.get('city')
         address = request.POST.get('address')
         postcode = request.POST.get('postcode')
@@ -52,9 +55,11 @@ class AddDonation(View):
                                       zip_code=postcode,
                                       pick_up_date=date,
                                       pick_up_time=time,
-                                      pick_up_comment=more_info
+                                      pick_up_comment=more_info,
+                                      user=request.user
                                       )
-        don.categories.add(categories)
+        don.categories.set(categories)
+        don.save()
         return redirect('confirm-donation')
 
 

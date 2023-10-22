@@ -20,7 +20,8 @@ from base import views
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name='admin'),
+    path('user/profile/', views.UserProfile.as_view(), name='user-profile'),
     path('', views.LandingPage.as_view(), name="landing-page"),
     path('add/donation/', views.AddDonation.as_view(), name="add-donation"),
     path('donation/confirm/', views.FormConfirm.as_view(), name="confirm-donation"),
