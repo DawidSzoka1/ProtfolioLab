@@ -4,13 +4,18 @@ from django.views import View
 from .models import Donation, Institution, Category
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+from django.core.paginator import Paginator
 
 
 # Create your views here.
 
 class UserProfile(View):
     def get(self, request):
-        return render(request, 'user-profile.html')
+        donations = Donation.objects.filter(user=request.user)
+        paginator = Paginator(donations, 10)
+        page = request.GET.get('page')
+        page_obj = paginator.get_page(page)
+        return render(request, 'user-profile.html', context={'page_obj': page_obj})
 
 
 class LandingPage(View):
