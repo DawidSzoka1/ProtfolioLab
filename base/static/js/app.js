@@ -323,7 +323,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         console.log(postcode.value.includes('-'));
                         console.log(postcode.value.length);
                         if (postcode.value.includes('-')) {
-                            console.log('idzla');
                             if (phone.value.length <= 15 && phone.value.length >= 9) {
                                 slide.classList.remove("active");
 
@@ -349,6 +348,20 @@ document.addEventListener("DOMContentLoaded", function () {
             const organizations = document.querySelectorAll("[name='organization']");
             const bags = document.querySelector("#bags");
             const organizationSummery = document.querySelector("#inst");
+            const addressSummary = document.querySelector('#address');
+            const dateSummary = document.querySelector('#date');
+            addressSummary.children[0].innerHTML = address.value;
+            addressSummary.children[1].innerHTML = cityInput.value;
+            addressSummary.children[2].innerHTML = postcode.value;
+            addressSummary.children[3].innerHTML = phone.value;
+
+            dateSummary.children[0].innerHTML = date.value;
+            dateSummary.children[1].innerHTML = time.value;
+            if(more_info.value){
+                dateSummary.children[2].innerHTML = date.value;
+            }
+
+
             if (bagsInput.value) {
                 bags.innerHTML = `${bagsInput.value} worki `;
             }
