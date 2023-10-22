@@ -267,9 +267,10 @@ document.addEventListener("DOMContentLoaded", function () {
             const address = document.querySelector("[name='address']");
             const postcode = document.querySelector("[name='postcode']");
             const phone = document.querySelector("[name='phone']");
-            const date = document.querySelector("[name='date']");
+            const date = document.querySelector("[name='data']");
             const time = document.querySelector("[name='time']");
             const more_info = document.querySelector("[name='more_info']");
+            const errors = document.querySelector("#error");
 
             this.slides.forEach(slide => {
 
@@ -288,7 +289,10 @@ document.addEventListener("DOMContentLoaded", function () {
                             slide.classList.add("active");
                         }
                     } else {
-                        this.currentStep = 1;
+                        errors.innerHTML = "Wybierz chociaż jedna kategorie"
+                        errors.style.display = "block";
+
+                        this.currentStep = 0;
                     }
 
                 } else if (this.currentStep === 3) {
@@ -313,12 +317,14 @@ document.addEventListener("DOMContentLoaded", function () {
                         this.currentStep = 3;
                     }
                 } else if (this.currentStep === 5) {
+                    console.log(cityInput.value);
+
                     if (cityInput.value && address.value && date.value && time.value) {
-                        console.log('dziala1');
-                        if ('-' in postcode.value && postcode.value.length === 5) {
-                            console.log('dziala2');
+                        console.log(postcode.value.includes('-'));
+                        console.log(postcode.value.length);
+                        if (postcode.value.includes('-')) {
+                            console.log('idzla');
                             if (phone.value.length <= 15 && phone.value.length >= 9) {
-                                console.log('dziala3');
                                 slide.classList.remove("active");
 
                                 if (slide.dataset.step == this.currentStep) {

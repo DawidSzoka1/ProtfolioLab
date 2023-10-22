@@ -847,6 +847,8 @@ form.form--contact textarea::placeholder {
   color: #3c3c3c;
 }
 
+
+
 /* line 2, scss/modules/_header.scss */
 header.header--main-page {
   background-image: url(../images/header-bg.jpg);

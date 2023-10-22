@@ -30,6 +30,7 @@
     </div>
 {% endblock %}
 {% block content %}
+
     <section class="form--steps">
         <div class="form--steps-instructions">
             <div class="form--steps-container">
@@ -54,8 +55,20 @@
             <div class="form--steps-counter">Krok <span>1</span>/5</div>
 
             <form action="form-confirmation.html" method="post">
+
                 <!-- STEP 1: class .active is switching steps -->
                 <div data-step="1" class="active">
+                    <div id="error" class="error" style="display: none;
+                      color: white;
+                      background-color: darkred;
+                      height: 20%;
+                      text-align: center;
+                      margin-bottom: 5%;
+                      padding: 1em;
+                      font-size: 30px;">
+
+
+                    </div>
                     <h3>Zaznacz co chcesz oddać:</h3>
                     {% for category in categories %}
                         <div class="form-group form-group--checkbox">
@@ -105,13 +118,15 @@
                         <div class="organizations" id="{{ organization.id }}" style="display: none">
                             <div style="display: none">
                                 {% for category in organization.categories.all %}
-                                    <input type="number" value="{{ category.id }}" id="{{ category.id }}" class="category">
+                                    <input type="number" value="{{ category.id }}" id="{{ category.id }}"
+                                           class="category">
 
                                 {% endfor %}
                             </div>
                             <div class="form-group form-group--checkbox">
                                 <label>
-                                    <input type="radio" name="organization" value="{{ organization.type }} {{ organization.name }}"/>
+                                    <input type="radio" name="organization"
+                                           value="{{ organization.type }} {{ organization.name }}"/>
                                     <span class="checkbox radio"></span>
                                     <span class="description">
                                     {% if organization.type == 0 %}
@@ -205,7 +220,7 @@
 
                                 <li>
                                     <span class="icon icon-hand"></span>
-                                    <span class="summary--text" id ="inst"
+                                    <span class="summary--text" id="inst"
                                     >Dla fundacji "Mam marzenie" w Warszawie</span
                                     >
                                 </li>
@@ -225,7 +240,7 @@
 
                             <div class="form-section--column">
                                 <h4>Termin odbioru:</h4>
-                                <ul id = "date">
+                                <ul id="date">
                                     <li>13/12/2018</li>
                                     <li>15:40</li>
                                     <li>Brak uwag</li>
