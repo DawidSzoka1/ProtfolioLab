@@ -31,6 +31,37 @@ class AddDonation(View):
             return render(request, 'form.html', context={'categories': categories, 'organizations': organizations})
         return redirect('login')
 
+    def post(self, request):
+        categories = list(map(int, request.POST.getlist('categories')))
+        categories = Category.objects.filter(id_in=categories)
+        quantity = request.POST.get('bags')
+        institution = Institution.objects.get(id=int(request.POST.get('organization')[-1]))
+        phone = request.POST.get('phone')
+        city = request.POST.get('city')
+        address = request.POST.get('address')
+        postcode = request.POST.get('postcode')
+        phone = request.POST.get('phone')
+        date = request.POST.get('data')
+        time = request.POST.get('time')
+        more_info = request.POST.get('more_info')
+        don = Donation.objects.create(quantity=int(quantity),
+                                      institution=institution,
+                                      phone=phone,
+                                      city=city,
+                                      address=address,
+                                      zip_code=postcode,
+                                      pick_up_date=date,
+                                      pick_up_time=time,
+                                      pick_up_comment=more_info
+                                      )
+        don.categories.add(categories)
+        return redirect('confirm-donation')
+
+
+class FormConfirm(View):
+    def get(self, request):
+        return render(request, 'form-confirmation.html')
+
 
 class Login(View):
     def get(self, request):

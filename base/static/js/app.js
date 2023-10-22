@@ -386,7 +386,7 @@ document.addEventListener("DOMContentLoaded", function () {
          * TODO: validation, send data to server
          */
         submit(e) {
-            e.preventDefault();
+
             /**
              /  nie wysyla przez to
              */
