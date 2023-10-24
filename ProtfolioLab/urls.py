@@ -25,6 +25,7 @@ urlpatterns = [
     path('', views.LandingPage.as_view(), name="landing-page"),
     path('add/donation/', views.AddDonation.as_view(), name="add-donation"),
     path('donation/confirm/', views.FormConfirm.as_view(), name="confirm-donation"),
+    path('donation/taken/<int:pk>/', views.TakeDonation.as_view(), name="taken-donation"),
     path('login/', views.Login.as_view(), name="login"),
     path("logout/", auth_views.LogoutView.as_view(template_name='index.html'), name="logout"),
     path('register/', views.Register.as_view(), name="register"),

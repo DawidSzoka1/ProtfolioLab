@@ -8,9 +8,11 @@
         <h1>email: {{ user }}</h1></div>
 {% endblock %}
 {% block content %}
+    <h1>
     <div>
-        {% for donation in page_obj %}
+        {% if page_obj %}
             <table>
+                <thead>
                 <tr>
                     <th>Oddane worki</th>
                     <th>Instytucje</th>
@@ -20,29 +22,42 @@
                     <th>Miejsce odbioru</th>
 
                 </tr>
+                </thead>
                 <tbody>
-                <tr>
-                    <td>{{ donation.quantity }}</td>
-                    <td>{{ donation.institution.name }}</td>
-                    <td>{% for category in donation.category.all %}
-                        {{ category.name }},
-                    {% endfor %}</td>
-                    <td>
-                        {% if donation.is_taken %}
-                            Odebrana
-                        {% else %}
-                            <a href=""> Potwierdż odbiór</a>
-                        {% endif %}
-                    </td>
-                    <td>{{ donation.pick_up_time }} {{ donation.pick_up_date }}</td>
-                    <td>{{ donation.address }} w {{ donation.city }}</td>
+                {% for donation in page_obj %}
+
+
+                    {% if donation.is_taken %}
+
+                        <tr style="color: green">
+                            {% else %}
+                        <tr>
+                    {% endif %}
+                <td>{{ donation.quantity }}</td>
+                <td>{{ donation.institution.name }}</td>
+                <td>{% for category in donation.categories.all %}
+                    {{ category }},
+                {% endfor %}</td>
+                <td>
+                    {% if donation.is_taken %}
+                        Odebrana
+                    {% else %}
+                        <a href="{% url 'taken-donation' donation.id %}"> Potwierdż odbiór</a>
+                    {% endif %}
+                </td>
+                <td>{{ donation.pick_up_time }} {{ donation.pick_up_date }}</td>
+                <td>{{ donation.address }} w {{ donation.city }}</td>
                 </tr>
+
+
+                {% endfor %}
                 </tbody>
             </table>
-        {% empty %}
-            <h1>Nie przesłałeś jeszcze żadnych darów</h1>
-        {% endfor %}
+        {% else %}
+            <h1>Nie masz zadnych donacji</h1>
+        {% endif %}
     </div>
+    </h1>
     {% if is_paginated %}
 
         {% if page_obj.has_previous %}

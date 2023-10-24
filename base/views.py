@@ -1,5 +1,7 @@
+import datetime
+
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from .models import Donation, Institution, Category
 from django.contrib.auth.models import User
@@ -11,7 +13,8 @@ from django.core.paginator import Paginator
 
 class UserProfile(View):
     def get(self, request):
-        donations = Donation.objects.filter(user=request.user).order_by('is_taken').order_by('-pick_up_date').order_by('-pick_up_time')
+        donations = Donation.objects.filter(user=request.user).order_by('is_taken', '-pick_up_date', '-pick_up_time')
+
         paginator = Paginator(donations, 10)
         page = request.GET.get('page')
         page_obj = paginator.get_page(page)
@@ -112,3 +115,14 @@ class Register(View):
                                                      last_name=last_name)
                             return redirect('login')
         return redirect('register')
+
+
+class TakeDonation(LoginRequiredMixin, View):
+    def get(self, request, pk):
+        donation = get_object_or_404(Donation, id=int(pk))
+        if donation.user == request.user:
+            donation.pick_up_date = datetime.date.today()
+            donation.pick_up_time = datetime.datetime.now().strftime('%H:%M:%S')
+            donation.is_taken = True
+            donation.save()
+        return redirect('user-profile')
