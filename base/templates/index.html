@@ -95,7 +95,9 @@
 
                             <div class="col">
                                 {% if organization.categories %}
-                                    <div class="text">{{ organization.categories }}</div>
+                                    <div class="text">{% for category in organization.categories.all %}
+                                        {{ category }}
+                                    {% endfor %}</div>
                                 {% endif %}
                             </div>
                         </li>
