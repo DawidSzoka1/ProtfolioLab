@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import RegexValidator
 from django.contrib.auth.models import User
+
 # Create your models here.
 
 choices = (
@@ -19,6 +20,12 @@ class Institution(models.Model):
     description = models.TextField()
     type = models.IntegerField(choices=choices, default=0)
     categories = models.ManyToManyField(Category)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Instytucja"
 
 
 class Donation(models.Model):
