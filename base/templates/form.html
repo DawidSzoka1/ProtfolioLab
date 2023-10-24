@@ -59,7 +59,7 @@
 
                 <!-- STEP 1: class .active is switching steps -->
                 <div data-step="1" class="active">
-                    <div id="error" class="error" style="display: none;
+                    <div id="error1" class="error1" style="display: none;
                       color: white;
                       background-color: darkred;
                       height: 20%;
@@ -96,6 +96,17 @@
 
                 <!-- STEP 2 -->
                 <div data-step="2">
+                    <div id="error2" class="error2" style="display: none;
+                      color: white;
+                      background-color: darkred;
+                      height: 20%;
+                      text-align: center;
+                      margin-bottom: 5%;
+                      padding: 1em;
+                      font-size: 30px;">
+
+
+                    </div>
                     <h3>Podaj liczbę 60l worków, w które spakowałeś/aś rzeczy:</h3>
 
                     <div class="form-group form-group--inline">
@@ -114,6 +125,17 @@
 
                 <!-- STEP 4 -->
                 <div data-step="3">
+                <div id="error3" class="error3" style="display: none;
+                      color: white;
+                      background-color: darkred;
+                      height: 20%;
+                      text-align: center;
+                      margin-bottom: 5%;
+                      padding: 1em;
+                      font-size: 30px;">
+
+
+                    </div>
                     <h3>Wybierz organizacje, której chcesz pomóc:</h3>
                     {% for organization in organizations %}
                         <div class="organizations" id="{{ organization.id }}" style="display: none">
@@ -154,6 +176,17 @@
 
                 <!-- STEP 5 -->
                 <div data-step="4">
+                    <div id="error4" class="error4" style="display: none;
+                      color: white;
+                      background-color: darkred;
+                      height: 20%;
+                      text-align: center;
+                      margin-bottom: 5%;
+                      padding: 1em;
+                      font-size: 30px;">
+
+
+                    </div>
                     <h3>Podaj adres oraz termin odbioru rzecz przez kuriera:</h3>
 
                     <div class="form-section form-section--columns">

@@ -270,7 +270,10 @@ document.addEventListener("DOMContentLoaded", function () {
             const date = document.querySelector("[name='data']");
             const time = document.querySelector("[name='time']");
             const more_info = document.querySelector("[name='more_info']");
-            const errors = document.querySelector("#error");
+            const error1 = document.querySelector("#error1");
+            const error2 = document.querySelector("#error2");
+            const error3 = document.querySelector("#error3");
+            const error4 = document.querySelector("#error4");
 
             this.slides.forEach(slide => {
 
@@ -280,6 +283,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (slide.dataset.step == this.currentStep) {
                         slide.classList.add("active");
                     }
+
                 }
                 if (this.currentStep === 2) {
                     if (categories) {
@@ -289,11 +293,12 @@ document.addEventListener("DOMContentLoaded", function () {
                             slide.classList.add("active");
                         }
                     } else {
-                        errors.innerHTML = "Wybierz chociaż jedna kategorie"
-                        errors.style.display = "block";
+                        error1.innerHTML = "Wybierz chociaż jedna kategorie"
+                        error1.style.display = "block";
 
-                        this.currentStep = 0;
+                        this.currentStep = 1;
                     }
+
 
                 } else if (this.currentStep === 3) {
                     if (bagsInput.value !== '') {
@@ -303,6 +308,8 @@ document.addEventListener("DOMContentLoaded", function () {
                             slide.classList.add("active");
                         }
                     } else {
+                        error2.innerHTML = "Podaj ilosc worków w litrach"
+                        error2.style.display = "block";
                         this.currentStep = 2;
                     }
 
@@ -314,14 +321,14 @@ document.addEventListener("DOMContentLoaded", function () {
                             slide.classList.add("active");
                         }
                     } else {
+                        error3.innerHTML = "Wybierz jedna instytucje"
+                        error3.style.display = "block";
                         this.currentStep = 3;
                     }
                 } else if (this.currentStep === 5) {
-                    console.log(cityInput.value);
+
 
                     if (cityInput.value && address.value && date.value && time.value) {
-                        console.log(postcode.value.includes('-'));
-                        console.log(postcode.value.length);
                         if (postcode.value.includes('-')) {
                             if (phone.value.length <= 15 && phone.value.length >= 9) {
                                 slide.classList.remove("active");
@@ -329,16 +336,25 @@ document.addEventListener("DOMContentLoaded", function () {
                                 if (slide.dataset.step == this.currentStep) {
                                     slide.classList.add("active");
                                 }
+                            }else{
+                                error4.innerHTML = "Zły numer telefonu poprawny format to (+48 999 999 999)"
+                                error4.style.display = "block";
                             }
+                        } else {
+                            error4.innerHTML = "Zły format kodu pocztowego poprawny to (00-000)"
+                            error4.style.display = "block";
                         }
-                    }else {
+
+                    } else {
+                        error4.innerHTML = "Wypełnij wysztkie pola i spróbuj ponownie. Uwaga pole uwagi dla kuriera jest polem dodatkowym nie trzeba go wypełniac "
+                        error4.style.display = "block";
                         this.currentStep = 4;
                     }
                 }
 
 
             });
-
+            this.$step.innerText = this.currentStep;
             this.$stepInstructions[0].parentElement.parentElement.hidden = this.currentStep >= 6;
             this.$step.parentElement.hidden = this.currentStep >= 6;
 
@@ -357,7 +373,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             dateSummary.children[0].innerHTML = date.value;
             dateSummary.children[1].innerHTML = time.value;
-            if(more_info.value){
+            if (more_info.value) {
                 dateSummary.children[2].innerHTML = date.value;
             }
 
