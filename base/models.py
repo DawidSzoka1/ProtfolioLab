@@ -29,6 +29,7 @@ class Institution(models.Model):
 
     class Meta:
         verbose_name = "Instytucja"
+        verbose_name_plural = "Instytucje"
 
 
 class Donation(models.Model):
