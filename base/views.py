@@ -11,7 +11,7 @@ from django.core.paginator import Paginator
 
 class UserProfile(View):
     def get(self, request):
-        donations = Donation.objects.filter(user=request.user)
+        donations = Donation.objects.filter(user=request.user).order_by('is_taken').order_by('-pick_up_date').order_by('-pick_up_time')
         paginator = Paginator(donations, 10)
         page = request.GET.get('page')
         page_obj = paginator.get_page(page)
@@ -101,13 +101,14 @@ class Register(View):
         password = request.POST.get('password')
         password2 = request.POST.get('password2')
         if '@' in email:
-            if password == password2:
-                if first_name and last_name:
-                    check = User.objects.filter(username=email)
-                    if check:
-                        pass
-                    else:
-                        User.objects.create_user(username=email, password=password, first_name=first_name,
-                                                 last_name=last_name)
-                        return redirect('login')
+            if email not in User.objects.all().values_list('username', flat=True):
+                if password == password2:
+                    if first_name and last_name:
+                        check = User.objects.filter(username=email)
+                        if check:
+                            pass
+                        else:
+                            User.objects.create_user(username=email, password=password, first_name=first_name,
+                                                     last_name=last_name)
+                            return redirect('login')
         return redirect('register')
